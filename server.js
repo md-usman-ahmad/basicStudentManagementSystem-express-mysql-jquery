@@ -23,10 +23,14 @@ app.use(cookieParser());
 const homeRouter = require("./Routes/home.js");
 const loginRouter = require("./Routes/login.js");
 const admindashboardRouter = require("./Routes/admindashboard.js");
+const showstudentsRouter = require("./Routes/showstudents.js");
+const addstudentRouter = require("./Routes/addstudent.js");
 
 app.use("/home", homeRouter);
 app.use("/login",loginRouter);
 app.use("/admindashboard",admindashboardRouter);
+app.use("/showstudents",showstudentsRouter);
+app.use("/addstudent",addstudentRouter);
 
 
 

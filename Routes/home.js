@@ -3,8 +3,7 @@ const Router = express.Router();
 const {authmiddleware} = require("../middleware.js");
 
 Router.get("/", authmiddleware ,async function(request,response){
-    try {
-        console.log("hgfhjfhgfghhgfhgf");
+    try {        
         
         const {isLoggedIn,isAdmin} = request;
         if(isLoggedIn && isAdmin === "yes" ){

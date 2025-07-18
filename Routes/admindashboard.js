@@ -6,6 +6,7 @@ const {authmiddleware} = require("../middleware.js");
 
 Router.get("/", authmiddleware ,async function(request,response){
     try {
+        
         const {isLoggedIn,isAdmin} = request;
         if(isLoggedIn && isAdmin === "yes"){
             response.render("admindashboard.ejs");

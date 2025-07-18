@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <title>ADDStudent</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+     <link rel="stylesheet" href="/css/addstudent.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body >
+    <nav class="navbar navbarTaskM bg-body-tertiary ">
+        <div class="container">
+            <!-- <a href="http://localhost:8000/admindashboard" class="ad btn btn-outline-primary">admin Dashboard</a> -->
+            <a class="ad btn btn-outline-primary">admin Dashboard
+                <img src="/images/dashboard.png" alt="" width="20px" height="20px">
+            </a>
+        </div>
+    </nav>
+    <div class="container ">
+        <div class="row addStudentsRow pt-4 justify-content-center">
+            <div class="col-sm-4 me-3 p-4 addStudentSection border border-end-0 border-2  rounded rounded-5 shadow" style=" box-shadow: -5px 5px 5px rgb(199, 198, 198) !important;">
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Fathers Name</label>
+                    <input type="text" class="form-control" id="fathername">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Age</label>
+                    <input type="text" class="form-control" id="age">
+                </div>
+                <!-- Gender 1 
+                <div class="mb-3">
+                    <label for="g">Gender</label><br>
+                    <input type="radio" id="m" name="gender" value="Male">
+                    <label for="m">Male</label><br>
+                    <input type="radio" id="f" name="gender" value="Female">
+                    <label for="f">Female</label><br>
+                </div> -->
+                     <!-- Gender 2 -->
+                <div class="mb-3">
+                    <label for="g" class="form-label">Gender</label>
+                    <div class="gender-group">
+                        <input type="radio" id="m" name="gender" value="Male">
+                        <label for="m">Male</label>
+                        <input type="radio" id="f" name="gender" value="Female">
+                        <label for="f">Female</label>
+                    </div>
+                </div>  
+                <div class="mb-3">
+                    <label class="form-label">Grade</label>
+                    <select name="Gender" id="grade-select">
+                        <option value="">--Please choose an option--</option>
+                        <option value="9th">9th</option>
+                        <option value="10th">10th</option>
+                        <option value="11th">11th</option>
+                        <option value="12th">12th</option>
+                      </select> 
+                </div>
+            </div>
+
+            <div class="col-sm-4 ms-3 p-4 border border-start-0 border-2  rounded rounded-5 shadow" style=" box-shadow: 5px -5px 5px rgb(199, 198, 198) !important;">
+                <div class="mb-3">
+                    <label class="form-label">Contact no</label>
+                    <input type="text" class="form-control" id="cn">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="text" class="form-control" id="email" disabled placeholder="name@gmail.com">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-control" id="un">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="text" class="form-control" id="pass" disabled placeholder="name_username">
+                </div>
+                <button id="submitbtn" class="btn btn-outline-warning liveToastBtn">Submit</button>
+                <p id="congrats"></p>
+            </div>
+        </div>
+    </div>
+
+
+        <!-- TOAST  -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-body main">
+                
+                </div>
+            </div>
+        </div>
+
+        <!-- AXIOS LINK  -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="addStudent.js"></script>
+</body>
+
+</html>

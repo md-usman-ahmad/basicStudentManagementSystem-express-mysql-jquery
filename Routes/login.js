@@ -3,11 +3,18 @@ const Router = express.Router();
 const dbQuery = require("../database/dbhelper.js");
 const jwt = require("jsonwebtoken");
 const {SECRET} = require("../constants.js");
+const {authmiddleware} = require("../middleware.js");
 
 
-Router.get("/",async function(request,response){
+Router.get("/", authmiddleware ,async function(request,response){
     try {
-        response.render("login.ejs");
+        
+        const {isLoggedIn , isAdmin} = request;
+        if(isLoggedIn && isAdmin){
+            response.redirect("http://localhost:8000/home");
+        } else{
+            response.render("login.ejs");
+        }
     } catch (error) {
         response.status(500).send(error);
     }

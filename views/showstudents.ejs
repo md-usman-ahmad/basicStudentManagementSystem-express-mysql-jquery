@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShowStudents</title>
+    <%- include('shared/BspCssJqueryLinks') %>
+
+     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+              <!------ Include the above in your HEAD tag ----------> 
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
+
+    <link rel="stylesheet" href="/css/showstudent.css">
+
+</head>
+<body>
+    <nav class="navbar navbarHomePage bg-body-tertiary ">
+          <div class="container ">
+              <h3>Welcome to Show Students</h3> 
+              <div class="d-flex ">
+                <div class="d-flex mx-2 ">
+                  <input type="text" id="searchInput" placeholder="Enter name" class="form-control mx-1">
+                  <button type="button" class="btn btn-outline-warning  d-flex align-items-center" id="searchbtn">Search
+                    <img src="/images/search.png" alt="" width="20px" height="20px">
+                  </button>
+                  <a class="ad btn btn-outline-primary">admin Dashboard
+                <img src="/images/dashboard.png" alt="" width="20px" height="20px">
+            </a>
+                </div>
+              </div>
+          </div>
+    </nav>
+
+
+    <div class="container-fluid" style="padding : 0">
+    	<div class="row" style="width: 1381px ;">
+            <div class="col-lg-12 col-md-10 ">
+                <div class="table-responsive">
+                  <table class="table">
+                      <thead>
+                          <tr>
+                              <th  class="text-center">userId</th>
+                              <th >Name</th>
+                              <th >Age</th>
+                              <th >Gender</th>
+                              <th >Grade</th>
+                              <th >contactno</th>
+                              <th >email</th>
+                              <th >username</th>
+                              <th >password</th>
+                              <th >createdAt</th>
+                              <th >updatedAt</th>
+                              <th >deletedAt</th>
+                              <th >loginCount</th>
+                              <th  class="text-right">Actions</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        <% arr.forEach(function(item){ %>
+                          <% if(item.username !== "admin"){ %>
+                            <tr class="text-center">
+                              <td id="tuserId-<%=item.userId%>" ><%= item.userId %></td>
+                              <td id="tname-<%=item.userId%>" ><%= item.name %></td>
+                              <td id="tage-<%=item.userId%>" ><%= item.age %></td>
+                              <td id="tgender-<%=item.userId%>" ><%= item.gender %></td>
+                              <td id="tgrade-<%=item.userId%>" ><%= item.grade %></td>
+                              <td id="tcontactno-<%=item.userId%>" ><%= item.contactno %></td>
+                              <td id="temail-<%=item.userId%>" ><%= item.email %></td>
+                              <td id="tusername-<%=item.userId%>" ><%= item.username %></td>
+                              <td id="tpassword-<%=item.userId%>" ><%= item.password %></td>
+                              <td ><%= item.createdAt.toISOString().slice(0,10) %></td>
+                              <% if(item.updatedAt){ %>
+                                <td><%= item.updatedAt.toISOString().slice(0,10) %></td>
+                              <% } else{ %>
+                                <td><%= item.updatedAt %></td>
+                              <% } %>
+
+                              <% if(item.deletedAt){ %>
+                                <td><%= item.deletedAt.toISOString().slice(0,10) %></td>
+                                <td><%= item.logincount %></td>
+                                <td class="td-actions text-right">
+                                  <button disabled type="button" rel="tooltip" class="update btn btn-success btn-just-icon btn-sm" id="up-<%=item.userId%>">
+                                      <i class="material-icons">edit</i>
+                                  </button>
+                                  <button disabled type="button" rel="tooltip" class="delete btn btn-danger btn-just-icon btn-sm" id="dl-<%=item.userId%>">
+                                      <i class="material-icons">close</i>
+                                  </button>
+                              </td>
+                              <% } else{ %>
+                                <td><%= item.deletedAt %></td>
+                                <td><%= item.logincount %></td>
+                                <td class="td-actions text-right">
+                                  <button type="button" rel="tooltip" class="update btn btn-success btn-just-icon btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" id="up-<%=item.userId%>">
+                                      <i class="material-icons">edit</i>
+                                  </button>
+                                  <button type="button" rel="tooltip" class="delete btn btn-danger btn-just-icon btn-sm" id="dl-<%=item.userId%>">
+                                      <i class="material-icons">close</i>
+                                  </button>
+                              </td>
+                              <% } %>  
+                          </tr>
+                          <% } %>
+                        <% }) %>
+                      </tbody>
+                  </table>
+                </div>    
+            </div>
+        </div>
+    </div>
+    
+    <!-- Edit Modal  -->
+        <div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit here </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-1">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" id="editName" >
+                    </div>
+                    <div class="mb-1">
+                        <label class="form-label">Age</label>
+                        <input type="text" class="form-control" id="editAge" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="g">Gender</label><br>
+                      <input type="radio" id="m" name="gender" value="Male">
+                      <label for="m">Male</label><br>
+                      <input type="radio" id="f" name="gender" value="Female">
+                      <label for="f">Female</label><br>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Grade</label>
+                    <select name="Gender" id="grade-select">
+                      <option value="">--Please choose an option--</option>
+                      <option value="9th">9th</option>
+                      <option value="10th">10th</option>
+                      <option value="11th">11th</option>
+                      <option value="12th">12th</option>
+                    </select> 
+                  </div>
+                  <div class="mb-3">
+                      <label class="form-label">Contact no</label>
+                      <input type="text" class="form-control" id="editContactno">
+                  </div>
+                  <div class="mb-3">
+                      <label class="form-label">Email</label>
+                      <input type="text" class="form-control" id="editEmail"  >
+                  </div>
+                  <div class="mb-3">
+                      <label class="form-label">Username</label>
+                      <input type="text" class="form-control" id="editUsername">
+                  </div>
+                  <div class="mb-3">
+                      <label class="form-label">Password</label>
+                      <input type="text" class="form-control" id="editPassword">
+                  </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center align-items-center">
+                    <div class="text-success text-center" id="editSuccessMessage">
+
+                    </div>
+                    <div class="text-danger text-center pe-4" id="editErrorMessage">
+
+                    </div>
+                    <button id="editConfirm" type="button"  
+                    >Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+     <!-- TOAST  -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-body main">
+            
+            </div>
+        </div>
+    </div>
+
+
+    <%- include('shared/BspJsAxiosLinks') %>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    <!-- this.ejs js-file  -->
+     <script src="showstudents.js"></script>
+</body>
+</html>
