@@ -9,7 +9,7 @@ Router.get("/", authmiddleware ,async function(request,response){
         if(isLoggedIn && isAdmin === "yes" ){
             response.redirect("http://localhost:8000/admindashboard")
         } else if(isLoggedIn && isAdmin === "no"){
-            response.redirect("http://localhost:8000/studentashboard");
+            response.redirect("http://localhost:8000/studentdashboard");
         } else{
             response.render("home.ejs");
         }

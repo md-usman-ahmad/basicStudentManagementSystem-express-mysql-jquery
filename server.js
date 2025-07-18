@@ -25,12 +25,16 @@ const loginRouter = require("./Routes/login.js");
 const admindashboardRouter = require("./Routes/admindashboard.js");
 const showstudentsRouter = require("./Routes/showstudents.js");
 const addstudentRouter = require("./Routes/addstudent.js");
+const logoutRouter = require("./Routes/logout.js");
+const studentdashboardRouter = require("./Routes/studentdashboardRouter.js");
 
 app.use("/home", homeRouter);
 app.use("/login",loginRouter);
 app.use("/admindashboard",admindashboardRouter);
 app.use("/showstudents",showstudentsRouter);
 app.use("/addstudent",addstudentRouter);
+app.use("/logout",logoutRouter);
+app.use("/studentdashboard",studentdashboardRouter);
 
 
 

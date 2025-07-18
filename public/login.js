@@ -1,6 +1,32 @@
 const toastLiveExample = document.getElementById('liveToast')
 const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
 
+$(".newPasswordConfirm").on("click",function(){
+    let username = $("#fpusername").val();
+    let newPassword = $("#enp").val();
+
+    axios({
+        method : "PATCH",
+        url : "http://localhost:8000/login",
+        data : {
+            username,
+            newPassword
+        }
+    })
+    .then(function(response){
+        console.log("response =",response);
+        $("#enpSuccessMessage").html(response.data);
+        $(".main").html(response.data);
+        toastBootstrap.show();
+        setTimeout(function(){
+            location.reload()
+        },2000)
+    })
+    .catch(function(error){
+        console.log("error =",error);
+    })
+})
+
 $("#loginConfirm").on("click",function(e){
     e.preventDefault();
     let username = $("#loginUsername").val();

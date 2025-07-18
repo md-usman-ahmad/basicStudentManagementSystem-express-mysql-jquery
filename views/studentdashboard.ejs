@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>studentDashboard</title>
+    <%- include('shared/BspCssJqueryLinks') %>
+    <link rel="stylesheet" href="/css/admindashboard.css">
+</head>
+<body style="background-image:url('/images/bgimage.avif'); background-repeat: no-repeat; background-attachment: fixed; background-size: contain; width: 100%; height: 100%;" >
+    <nav class="navbar navbarHomePage bg-body-tertiary ">
+          <div class="container ">
+              <h3>Welcome to student Dashboard</h3> 
+              <div class="d-flex ">
+                <div class="d-flex mx-2 ">
+                <!-- <a class="btn btn-outline-dark " href="./search.html"  id="search">Search</a> -->
+                <a class="btn btn-outline-danger " id="logout">Logout
+                  <img src="/images/logout.png" alt="" width="25px" height="25px">
+                </a>
+              </div>
+          </div>
+    </nav>
+
+
+
+    <%- include('shared/BspJsAxiosLinks') %>
+    <!-- this.ejs js-file  -->
+     <script src="studentdashboard.js"></script>
+</body>
+</html>

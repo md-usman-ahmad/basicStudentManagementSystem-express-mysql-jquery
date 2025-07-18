@@ -6,9 +6,9 @@ const {SECRET} = require("../constants.js");
 const {authmiddleware} = require("../middleware.js");
 
 
+
 Router.get("/", authmiddleware ,async function(request,response){
     try {
-        
         const {isLoggedIn , isAdmin} = request;
         if(isLoggedIn && isAdmin){
             response.redirect("http://localhost:8000/home");
@@ -37,6 +37,27 @@ Router.post("/",async function(request,response){
         } else{
             throw "Authentication Failed!!! This user doesn't exist in our database"
         }
+    } catch (error) {
+        response.status(500).send(error);
+    }
+})
+
+Router.patch("/",async function(request,response){
+    try {
+        const {newPassword,username} = request.body;
+        let query = `select * from users where username = ?`
+        let params = [username];
+        let aUser = await dbQuery(query,params);
+        if(aUser[0].length === 0){
+            throw "Authentication Failed!!! This user doesn't exist in our database"
+        }
+        query = `update users
+                set password = ?
+                where username = ?
+                `
+        params = [newPassword,username];
+        await dbQuery(query,params);
+        response.send(`Password Updated of a user having  username[${username}]`);
     } catch (error) {
         response.status(500).send(error);
     }
