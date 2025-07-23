@@ -5,15 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>studentDashboard</title>
     <%- include('shared/BspCssJqueryLinks') %>
-    <link rel="stylesheet" href="/css/admindashboard.css">
+    <link rel="stylesheet" href="/css/studentdashboard.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
 </head>
 <body style="background-image:url('/images/bgimage.avif'); background-repeat: no-repeat; background-attachment: fixed; background-size: contain; width: 100%; height: 100%;" >
-    <nav class="navbar navbarHomePage bg-body-tertiary ">
+    <!-- <nav class="navbar navbarHomePage bg-body-tertiary ">
           <div class="container ">
               <h3>Welcome to student Dashboard</h3> 
               <div class="d-flex ">
                 <div class="d-flex mx-2 ">
-                <!-- <a class="btn btn-outline-dark " href="./search.html"  id="search">Search</a> -->
+                
+                <a class="btn btn-outline-danger " id="logout">Logout
+                  <img src="/images/logout.png" alt="" width="25px" height="25px">
+                </a>
+              </div>
+          </div>
+    </nav> -->
+
+    <% if(currentLoggedInStudentlogincount == 1){ %>
+    <p>Login count: <%= currentLoggedInStudentlogincount %></p>
+     <div class="container mt-2">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-lg-8 bg-white p-4  rounded shadow-sm">
+          <div class="row justify-content-center">
+            <div class="col-12 mb-1 text-center ">
+                <h2 class="h6">1st Time loggedIn by <%=currentLoggedInStudentName%>, change your password to proceed ahead</h2>
+                <!-- <h3 class="fs-6 fw-normal text-secondary m-0">Enter your details to Signup</h3> -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+                <div class="col-12 pb-3">
+                    <label for="Username" class="form-label">Username </label>
+                    <input type="text" class="form-control" name="username" id="Username" placeholder="type here">
+                </div>
+                <div class="col-12 pb-3">
+                    <label for="enp" class="form-label">Enter New Password </label>
+                    <input type="text" class="form-control" name="enp" id="enp" placeholder="type here">
+                </div>      
+                <div class="col-sm-12 mt-3">
+                    <div class="d-grid">
+                        <button type="submit" id="updatePasswordbtn" class="btn btn-primary" >Save changes</button>
+                    </div>
+                </div>                  
+                </div>
+            </div>
+            <div class="row justify-content-center mt-2">          
+                <div class="text-success text-center pt-2" id="SuccessMessage">
+
+                </div>
+                <div class="text-danger text-center"  id="ErrorMessage">
+
+                </div>              
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+    <% } else{ %>
+        <nav class="navbar navbarHomePage bg-body-tertiary ">
+          <div class="container ">
+              <h3>Welcome to student Dashboard</h3> 
+              <div class="d-flex ">
+                <div class="d-flex mx-2 ">
+                
                 <a class="btn btn-outline-danger " id="logout">Logout
                   <img src="/images/logout.png" alt="" width="25px" height="25px">
                 </a>
@@ -21,6 +78,52 @@
           </div>
     </nav>
 
+<div class="container pt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-3">
+            <div class="contact-box center-version">
+                <div class="x">
+                    <img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+                    <h3 class="m-b-xs"><strong><%= currentLoggedInStudentData.name %></strong></h3>
+        
+                    <div class="font-bold"> age : <%= currentLoggedInStudentData.age %></div>
+                    <div class="font-bold"> gender : <%= currentLoggedInStudentData.gender %></div>
+                    <div class="font-bold"> grade : <%= currentLoggedInStudentData.grade %></div>
+                    <div class="font-bold"> contactno : <%= currentLoggedInStudentData.contactno %></div>
+                    <div class="font-bold"> email : <%= currentLoggedInStudentData.email %></div>
+                    <div class="font-bold"> username : <%= currentLoggedInStudentData.username %></div>
+                    <div class="font-bold"> password : <%= currentLoggedInStudentData.password %></div>
+                    <div class="font-bold"> createdAt : <%= currentLoggedInStudentData.createdAt.toISOString().split("T")[0] %></div>
+                    <% if(currentLoggedInStudentData.updatedAt){ %>
+                      <div> updatedAt : <%= currentLoggedInStudentData.updatedAt.toISOString().split("T")[0] %> </div>
+                    <% } else{ %>
+                        <div> updatedAt : <%= currentLoggedInStudentData.updatedAt %> </div>
+                    <% } %>
+                    <div class="contact-box-footer">
+                      <button type="button" class="edit btn btn-outline-primary" id="<%=currentLoggedInStudentData.userId%>" data-bs-toggle="modal" data-bs-target="#editModal">Edit
+                        <img src="/images/user-info-writing.png" alt="" style="width: 20px; height: 20px;">
+                      </button>
+                    </div> 
+                  </div>
+                <!-- <div class="contact-box-footer">
+                    <div class="m-t-xs btn-group">
+                        <a class="btn btn-xs btn-white"><i class="fa fa-phone"></i> Call </a>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+    <% } %>
+
+    <!-- TOAST  -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-body main">
+            
+            </div>
+        </div>
+    </div>
 
 
     <%- include('shared/BspJsAxiosLinks') %>

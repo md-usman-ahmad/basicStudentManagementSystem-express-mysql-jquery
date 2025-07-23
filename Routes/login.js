@@ -29,7 +29,11 @@ Router.post("/",async function(request,response){
         let outputFromDB = await dbQuery(query,params);
         if(outputFromDB.length !== 0){
             if(password === outputFromDB[0].password){
-                response.cookie("token",jwt.sign({isAdmin : outputFromDB[0].isAdmin},SECRET));
+                response.cookie("token",jwt.sign({
+                    isAdmin : outputFromDB[0].isAdmin,
+                    currentloggedInUsername : outputFromDB[0].username,
+                    currentloggedInStudentLoginCount : outputFromDB[0].logincount   
+                },SECRET));
                 response.send("Login Successfull");
             } else{
                 throw "Wrong password!"
@@ -37,7 +41,7 @@ Router.post("/",async function(request,response){
         } else{
             throw "Authentication Failed!!! This user doesn't exist in our database"
         }
-    } catch (error) {
+    } catch (error) { 
         response.status(500).send(error);
     }
 })

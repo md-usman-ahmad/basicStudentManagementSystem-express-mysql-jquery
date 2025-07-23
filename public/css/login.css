@@ -1,0 +1,34 @@
+                    /* loginConfirm button css  */
+#loginConfirm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* space between text and image */
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  border: 2px solid #49e929; /* bootstrap primary color */
+  background-color: transparent;
+  color: #4efc22;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#loginConfirm:hover {
+  background-color: #0efc06;
+  color: white;
+  transform: translateY(-15px);
+  box-shadow: 10px 6px 10px rgb(7, 8, 7);
+}
+
+#loginConfirm:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#loginConfirm:focus-visible {
+  outline: 3px solid rgba(32, 255, 69, 0.425);
+  outline-offset: 3px;
+} 

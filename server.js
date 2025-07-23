@@ -26,7 +26,7 @@ const admindashboardRouter = require("./Routes/admindashboard.js");
 const showstudentsRouter = require("./Routes/showstudents.js");
 const addstudentRouter = require("./Routes/addstudent.js");
 const logoutRouter = require("./Routes/logout.js");
-const studentdashboardRouter = require("./Routes/studentdashboardRouter.js");
+const studentdashboardRouter = require("./Routes/studentdashboard.js");
 
 app.use("/home", homeRouter);
 app.use("/login",loginRouter);

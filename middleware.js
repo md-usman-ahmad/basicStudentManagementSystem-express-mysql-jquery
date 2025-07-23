@@ -8,6 +8,8 @@ async function authmiddleware(request,response,next){
         console.log("payload authmiddleware =", payload);
         request.isLoggedIn = true;
         request.isAdmin = payload.isAdmin
+        request.currentloggedInUsername = payload.currentloggedInUsername
+        request.currentloggedInStudentLoginCount = payload.currentloggedInStudentLoginCount
         next();
     } catch (error) {
         request.isLoggedIn = false;
