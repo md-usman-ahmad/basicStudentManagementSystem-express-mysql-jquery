@@ -78,27 +78,72 @@
           </div>
     </nav>
 
-<div class="container pt-3">
+<div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-3">
-            <div class="contact-box center-version">
+        <div class="col-md-6" >
+            <div class="contact-box center-version  border border-end-0 border-2  rounded rounded-5 shadow" style=" box-shadow: -5px 5px 5px rgb(199, 198, 198) !important;">
                 <div class="x">
                     <img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png">
-                    <h3 class="m-b-xs"><strong><%= currentLoggedInStudentData.name %></strong></h3>
-        
-                    <div class="font-bold"> age : <%= currentLoggedInStudentData.age %></div>
-                    <div class="font-bold"> gender : <%= currentLoggedInStudentData.gender %></div>
-                    <div class="font-bold"> grade : <%= currentLoggedInStudentData.grade %></div>
-                    <div class="font-bold"> contactno : <%= currentLoggedInStudentData.contactno %></div>
-                    <div class="font-bold"> email : <%= currentLoggedInStudentData.email %></div>
-                    <div class="font-bold"> username : <%= currentLoggedInStudentData.username %></div>
-                    <div class="font-bold"> password : <%= currentLoggedInStudentData.password %></div>
-                    <div class="font-bold"> createdAt : <%= currentLoggedInStudentData.createdAt.toISOString().split("T")[0] %></div>
+                    <h3 class="m-b-xs" id="tName"><strong><%= currentLoggedInStudentData.name %></strong></h3>
+
+                    <div class="d-flex justify-content-center">
+                        <label for="" class="pe-2"> userId : </label>
+                        <div id="tuserId"> <%= currentLoggedInStudentData.userId %> </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-center">
+                        <label for="" class="pe-2"> Age: </label>
+                        <div id="tAge"> <%= currentLoggedInStudentData.age %> </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-center">
+                        <label for="" class="pe-2"> Gender : </label>
+                        <div id="tGender"> <%= currentLoggedInStudentData.gender %> </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                      <label for="" class="pe-2"> Grade : </label>
+                      <div id="tGrade"> <%= currentLoggedInStudentData.grade %> </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                      <label for="" class="pe-2"> contactno : </label>
+                      <div id="tContactno"> <%= currentLoggedInStudentData.contactno %> </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                      <label for="" class="pe-2"> email : </label>
+                      <div id="tEmail"> <%= currentLoggedInStudentData.email %> </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                      <label for="" class="pe-2"> username : </label>
+                      <div id="tUsername"> <%= currentLoggedInStudentData.username %> </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                      <label for="" class="pe-2"> password : </label>
+                      <div id="tPassword"> <%= currentLoggedInStudentData.password %> </div>
+                    </div>
+                    
+                    <div> createdAt : <%= currentLoggedInStudentData.createdAt.toISOString().split("T")[0] %></div>
+
                     <% if(currentLoggedInStudentData.updatedAt){ %>
-                      <div> updatedAt : <%= currentLoggedInStudentData.updatedAt.toISOString().split("T")[0] %> </div>
+                    <div class="d-flex justify-content-center">
+                        <label for="" class="pe-2"> updatedAt : </label>
+                        <div> <%= currentLoggedInStudentData.updatedAt.toISOString().split("T")[0] %> </div>
+                    </div>
                     <% } else{ %>
-                        <div> updatedAt : <%= currentLoggedInStudentData.updatedAt %> </div>
+                        <div class="d-flex justify-content-center">
+                        <label for="" class="pe-2"> updatedAt : </label>
+                        <div> <%= currentLoggedInStudentData.updatedAt %> </div>
+                    </div>
                     <% } %>
+
+                    <div class="d-flex justify-content-center">
+                      <label for="" class="pe-2"> logincount : </label>
+                      <div id="tlogincount"> <%= currentLoggedInStudentData.logincount %></div>
+                    </div>
                     <div class="contact-box-footer">
                       <button type="button" class="edit btn btn-outline-primary" id="<%=currentLoggedInStudentData.userId%>" data-bs-toggle="modal" data-bs-target="#editModal">Edit
                         <img src="/images/user-info-writing.png" alt="" style="width: 20px; height: 20px;">
@@ -115,6 +160,72 @@
     </div>
 </div>
     <% } %>
+
+    <!-- Edit Modal  -->
+        <div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit here </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-1">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" id="editName" >
+                    </div>
+                    <div class="mb-1">
+                        <label class="form-label">Age</label>
+                        <input type="text" class="form-control" id="editAge" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="g">Gender</label><br>
+                      <input type="radio" id="m" name="gender" value="Male">
+                      <label for="m">Male</label><br>
+                      <input type="radio" id="f" name="gender" value="Female">
+                      <label for="f">Female</label><br>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Grade</label>
+                    <select name="Gender" id="grade-select">
+                      <option value="">--Please choose an option--</option>
+                      <option value="9th">9th</option>
+                      <option value="10th">10th</option>
+                      <option value="11th">11th</option>
+                      <option value="12th">12th</option>
+                    </select> 
+                  </div>
+                  <div class="mb-3">
+                      <label class="form-label">Contact no</label>
+                      <input type="text" class="form-control" id="editContactno">
+                  </div>
+                  <div class="mb-3">
+                      <label class="form-label">Email</label>
+                      <input type="text" class="form-control" id="editEmail"  >
+                  </div>
+                  <div class="mb-3">
+                      <label class="form-label">Username</label>
+                      <input type="text" class="form-control" id="editUsername">
+                  </div>
+                  <div class="mb-3">
+                      <label class="form-label">Password</label>
+                      <input type="text" class="form-control" id="editPassword">
+                  </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center align-items-center">
+                    <div class="text-success text-center" id="editSuccessMessage">
+
+                    </div>
+                    <div class="text-danger text-center pe-4" id="editErrorMessage">
+
+                    </div>
+                    <button id="editConfirm" type="button"  
+                    >Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- TOAST  -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">

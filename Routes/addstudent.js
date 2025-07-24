@@ -30,8 +30,8 @@ Router.post("/",async function(request,response){
             } 
         }
 
-        query = `insert into users(name,fathername,age,gender,grade,contactno,email,username,password,createdAt,logincount,isAdmin) values(?,?,?,?,?,?,?,?,?,?,?,?) `
-        params = [name,fathername,age,gender,grade,contactno,name+"@gmail.com",username, name+"_"+username ,createdAt,0,"no"];
+        query = `insert into users(name,fathername,age,gender,grade,contactno,email,username,password,createdAt,logincount,isAdmin,provider) values(?,?,?,?,?,?,?,?,?,?,?,?,?) `
+        params = [name,fathername,age,gender,grade,contactno,name+"@gmail.com",username, name+"_"+username ,createdAt,0,"no","local"];
         await dbQuery(query,params);
         
         response.send("Student added");

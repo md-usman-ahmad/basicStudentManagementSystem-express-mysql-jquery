@@ -13,8 +13,9 @@ background:#eee;
   color: inherit;
 }
 .contact-box.center-version {
-  border: 1px solid #e7eaec;
+  border: 3px solid #e7eaec;
   padding: 0;
+  border-radius: 15px;
 }
 .contact-box.center-version > .x {
   display: block;

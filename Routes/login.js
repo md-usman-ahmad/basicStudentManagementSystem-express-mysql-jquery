@@ -29,10 +29,16 @@ Router.post("/",async function(request,response){
         let outputFromDB = await dbQuery(query,params);
         if(outputFromDB.length !== 0){
             if(password === outputFromDB[0].password){
+
+                let query = `update users
+                    set logincount = ?
+                    where username = ?
+                    `
+                let params = [outputFromDB[0].logincount + 1, username];
+                await dbQuery(query,params);
                 response.cookie("token",jwt.sign({
                     isAdmin : outputFromDB[0].isAdmin,
-                    currentloggedInUsername : outputFromDB[0].username,
-                    currentloggedInStudentLoginCount : outputFromDB[0].logincount   
+                    currentloggedInUsername : outputFromDB[0].username
                 },SECRET));
                 response.send("Login Successfull");
             } else{

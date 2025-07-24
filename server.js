@@ -1,11 +1,80 @@
 const express = require("express");
 const app = express();
-const {PORT} = require("./constants.js");
 
-
+const constants = require("./constants.js");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+let jwt = require("jsonwebtoken");
+const dbQuery = require("./database/dbhelper.js");
+require("dotenv").config();
+// console.log("process.env = ",process.env);
+
+const passport = require("passport");
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
+// Configure Passport to use Google OAuth
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENTID,
+  clientSecret: process.env.GOOGLE_CLIENTSECRET,
+  callbackURL: "http://localhost:8000/google/callback"
+}, async function(accessToken, refreshToken, profile, cb){
+  console.log("profile =",profile);
+  try {
+    const outputFromDB = await dbQuery(`SELECT * FROM users WHERE email = ?`, [
+      profile.emails[0].value,
+    ]);
+    console.log("outputFromDB =",outputFromDB);
+
+    if (outputFromDB.length > 0) {  
+      cb(null, outputFromDB[0]);
+    } else {
+      await dbQuery(`INSERT INTO users (name, email,username,password,createdAt,logincount,isAdmin,provider) VALUES (?, ?, ?, ?, ?, ?, ?,?)`, [
+        profile.displayName, profile.emails[0].value, profile.displayName+"_"+profile.id, "", new Date().toISOString().slice(0,10), 0, "no", profile.provider
+      ]);
+      const outputFromDB = await dbQuery(`SELECT * FROM users WHERE email = ?`, [
+        profile.emails[0].value,
+      ]);
+      cb(null, outputFromDB[0]);
+    }
+
+  } catch (error) {
+    cb(error,false);
+  }
+}))
+
+// Intiliazing passport as middleware in our application
+app.use(passport.initialize());
+
+// after clicking on 'continue with Google' button 
+app.get("/google", passport.authenticate('google', {
+  scope: ['profile', 'email'],
+  prompt: 'select_account'  // force Google to show account picker every time
+}));
+
+app.get("/google/callback",passport.authenticate("google",{
+  session : false
+}), async function(request,response,next){
+    console.log("request.user =",request.user);
+    const user = request.user;
+    const token = jwt.sign({ isAdmin : user.isAdmin , currentloggedInUsername : user.username}, constants.SECRET, {
+      expiresIn: '1h'
+    })
+
+  response.cookie('token', token)
+
+// user login krgya isiliye logincount increment krrhe 
+    let query = `update users 
+                set logincount = ?
+                where userId = ?`
+    let params = [user.logincount+1 , user.userId ];
+    await dbQuery(query,params);
+//   response.send('callback is working')
+  response.redirect("http://localhost:8000/home");
+})
+
+
+
 
         // Middlewares 
 app.use(bodyParser.json());
@@ -38,6 +107,6 @@ app.use("/studentdashboard",studentdashboardRouter);
 
 
 
-app.listen(PORT,function(){
-    console.log(`server is working on PORT : ${PORT}`);
+app.listen(constants.PORT,function(){
+    console.log(`server is working on PORT : ${constants.PORT}`);
 })
