@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 const {SECRET} = require("../constants.js");
 const {authmiddleware} = require("../middleware.js");
 
+const passport = require("../passport-config.js");
+
 
 
 Router.get("/", authmiddleware ,async function(request,response){
@@ -72,5 +74,35 @@ Router.patch("/",async function(request,response){
         response.status(500).send(error);
     }
 })
+
+// ------------------- OAuth login via Google and Github using passport.js -----------------------------------
+
+// after clicking on 'continue with Google' button 
+Router.get("/google", passport.authenticate('google', {
+  scope: ['profile', 'email'], //google ka scope ye hota hai email get krne k lie
+  prompt: 'select_account'  // force Google to show account picker every time
+}));
+
+Router.get("/google/callback",passport.authenticate("google",{
+  session : false
+}), async function(request,response,next){
+    console.log("request.user =",request.user);
+    const user = request.user;
+    const token = jwt.sign({ isAdmin : user.isAdmin , currentloggedInUsername : user.username}, SECRET, {
+      expiresIn: '1h'
+    })
+  response.cookie('token', token)
+
+// user login krgya isiliye logincount increment krrhe 
+    let query = `update users 
+                set logincount = ?
+                where userId = ?`
+    let params = [user.logincount+1 , user.userId ];
+    await dbQuery(query,params);
+//   response.send('callback is working')
+  response.redirect("http://localhost:8000/home");
+})
+
+
 
 module.exports = Router;
