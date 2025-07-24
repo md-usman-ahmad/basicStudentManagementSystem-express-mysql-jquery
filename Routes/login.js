@@ -75,7 +75,7 @@ Router.patch("/",async function(request,response){
     }
 })
 
-// ------------------- OAuth login via Google and Github using passport.js -----------------------------------
+// ------------------- OAuth login via Google using passport.js ------------------------------------------------
 
 // after clicking on 'continue with Google' button 
 Router.get("/google", passport.authenticate('google', {
@@ -103,6 +103,27 @@ Router.get("/google/callback",passport.authenticate("google",{
   response.redirect("http://localhost:8000/home");
 })
 
+// ------------------- OAuth login via Github using passport.js ------------------------------------------------
+
+// after clicking on 'continue with Github' button 
+Router.get("/github", passport.authenticate('github', {
+  scope: ['profile', 'user:email'], //google ka scope ye hota hai email get krne k lie
+  prompt: 'select_account'  // its useless as github doesnt allow choosing diffrent github accounts, it will login then redirect to your given callback url.
+}));
+
+Router.get("/github/callback",passport.authenticate("github",{
+  session : false
+}), function(request,response,next){
+    console.log("request.user =",request.user);
+    const user = request.user;
+    const token = jwt.sign({ isAdmin : user.isAdmin , currentloggedInUsername : user.username},SECRET, {
+      expiresIn: '1h'
+    })
+
+  response.cookie('token', token)
+  // response.send('callback is working')
+  response.redirect("http://localhost:8000/home");
+})
 
 
 module.exports = Router;
