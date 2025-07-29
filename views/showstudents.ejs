@@ -17,6 +17,13 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
 
     <link rel="stylesheet" href="/css/showstudent.css">
+    <style>
+      td {
+        white-space: normal;
+        word-wrap: break-word;
+        word-break: break-word;
+      }
+    </style>
 
 </head>
 <body>
@@ -25,10 +32,10 @@
               <h3>Welcome to Show Students</h3> 
               <div class="d-flex ">
                 <div class="d-flex mx-2 ">
-                  <input type="text" id="searchInput" placeholder="Enter name" class="form-control mx-1">
+                  <!-- <input type="text" id="searchInput" placeholder="Enter name" class="form-control mx-1">
                   <button type="button" class="btn btn-outline-warning  d-flex align-items-center" id="searchbtn">Search
                     <img src="/images/search.png" alt="" width="20px" height="20px">
-                  </button>
+                  </button> -->
                   <a class="ad btn btn-outline-primary">admin Dashboard
                 <img src="/images/dashboard.png" alt="" width="20px" height="20px">
             </a>
@@ -45,14 +52,14 @@
                   <table class="table">
                       <thead>
                           <tr>
-                              <th  class="text-center">userId</th>
-                              <th >Name</th>
+                              <th >userId</th>
+                              <th class="text-center" >Name</th>
                               <th >Age</th>
                               <th >Gender</th>
                               <th >Grade</th>
                               <th >contactno</th>
-                              <th >email</th>
-                              <th >username</th>
+                              <th class="text-center">email</th>
+                              <th class="text-center" >username</th>
                               <th >password</th>
                               <th >createdAt</th>
                               <th >updatedAt</th>

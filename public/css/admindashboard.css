@@ -147,7 +147,7 @@ body, html {
 }
 
 /* LOGOUT BUTTON CSS */
-  admindashboard button css 
+                          /* admindashboard button css  */
  #logout {
   display: inline-flex;
   align-items: center;
@@ -168,7 +168,7 @@ body, html {
   background-color: #fd0d0d;
   color: white;
   transform: translateY(-2px);
-  box-shadow: 10px 6px 10px rgb(5, 5, 5);
+  box-shadow: 10px 6px 10px rgb(255, 30, 30);
 }
 
 .ad:active {

@@ -41,3 +41,25 @@ background:#eee;
 .x{
     text-decoration:none !important;    
 }
+
+
+#logout:hover{
+  background-color: #fd0d0d;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 10px 6px 10px rgb(252, 31, 31);
+}
+#logout:active{
+  transform: scale(0.80);
+  box-shadow: 10px 6px 10px rgb(207, 7, 7);
+}
+.edit:hover {
+  background-color: #1962ff;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 10px 6px 10px rgb(26, 49, 255);
+}
+.edit:active {
+  transform: scale(0.80);
+  box-shadow: 10px 6px 10px rgb(16, 106, 241);
+}
